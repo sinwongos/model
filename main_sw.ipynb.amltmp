@@ -1,0 +1,116 @@
+{
+  "cells": [
+    {
+      "cell_type": "code",
+      "source": [
+        "# azureml-core of version 1.0.72 or higher is required\n",
+        "from azureml.core import Workspace, Dataset\n",
+        "\n",
+        "# Define Azure ML workspace details\n",
+        "subscription_id = '9ead393f-4604-4166-b88b-9e7f2ca53d62'\n",
+        "resource_group = 'pdsppoc2_rg_data_sandbox_module'\n",
+        "workspace_name = 'pdsppoc2_data_sandbox'\n",
+        "\n",
+        "# Connect to the Azure ML workspace\n",
+        "workspace = Workspace(subscription_id, resource_group, workspace_name)\n",
+        "\n",
+        "# Get the dataset by name\n",
+        "dataset = Dataset.get_by_name(workspace, name='geofingerprinting')\n",
+        "\n",
+        "# Mount the dataset to a local directory\n",
+        "mount_context = dataset.mount(target_path='./mounted_data', overwrite=False)\n",
+        "\n",
+        "# Start the mount context\n",
+        "mount_context.start()\n",
+        "\n",
+        "print(\"Dataset mounted at:\", mount_context.mount_point)\n",
+        "\n",
+        "# Remember to stop the mount context when done\n",
+        "# mount_context.stop()"
+      ],
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "FileNotFoundError",
+          "evalue": "[Errno 2] No such file or directory: 'null/Users/Sin.Wong'",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mFileNotFoundError\u001b[0m                         Traceback (most recent call last)",
+            "Cell \u001b[0;32mIn[1], line 2\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[38;5;28;01mimport\u001b[39;00m \u001b[38;5;21;01mos\u001b[39;00m\n\u001b[0;32m----> 2\u001b[0m \u001b[43mos\u001b[49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43mchdir\u001b[49m\u001b[43m(\u001b[49m\u001b[38;5;124;43m\"\u001b[39;49m\u001b[38;5;124;43mnull/Users/Sin.Wong\u001b[39;49m\u001b[38;5;124;43m\"\u001b[39;49m\u001b[43m)\u001b[49m\n",
+            "\u001b[0;31mFileNotFoundError\u001b[0m: [Errno 2] No such file or directory: 'null/Users/Sin.Wong'"
+          ]
+        }
+      ],
+      "execution_count": 1,
+      "metadata": {
+        "gather": {
+          "logged": 1746031787406
+        }
+      },
+      "id": "41958633"
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import os\n",
+        "\n",
+        "# Path to the mounted dataset\n",
+        "mounted_path = \"/tmp/tmpcgvtcyst\"\n",
+        "\n",
+        "# Path to the 'geofingerprinting' folder\n",
+        "geofingerprinting_path = os.path.join(mounted_path, \"geofingerprinting\")\n",
+        "\n",
+        "# List all files and directories in the 'geofingerprinting' folder\n",
+        "if os.path.exists(geofingerprinting_path):\n",
+        "    contents = os.listdir(geofingerprinting_path)\n",
+        "    print(\"Contents of the 'geofingerprinting' folder:\")\n",
+        "    for item in contents:\n",
+        "        print(item)\n",
+        "else:\n",
+        "    print(\"'geofingerprinting' folder does not exist.\")"
+      ],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "Contents of the 'geofingerprinting' folder:\nground_truth\npatches\n"
+        }
+      ],
+      "execution_count": 3,
+      "metadata": {},
+      "id": "a7e1029c"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)"
+    },
+    "language_info": {
+      "name": "python",
+      "version": "3.10.11",
+      "mimetype": "text/x-python",
+      "codemirror_mode": {
+        "name": "ipython",
+        "version": 3
+      },
+      "pygments_lexer": "ipython3",
+      "nbconvert_exporter": "python",
+      "file_extension": ".py"
+    },
+    "microsoft": {
+      "ms_spell_check": {
+        "ms_spell_check_language": "en"
+      }
+    },
+    "kernel_info": {
+      "name": "python3"
+    },
+    "nteract": {
+      "version": "nteract-front-end@1.0.0"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
