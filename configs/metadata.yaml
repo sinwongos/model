@@ -266,3 +266,30 @@ modis:
       sur_refl_b05: 1.240
       sur_refl_b06: 1.640
       sur_refl_b07: 2.130
+os_rgb_i:
+  band_order:
+    - red
+    - green
+    - blue
+    - nir
+  rgb_indices:
+    - 0
+    - 1
+    - 2
+  gsd: 0.25
+  bands:
+    mean:
+      red: 0.1646746432563723
+      green: 0.18455283795977684
+      blue: 0.20058415167712507
+      nir: 0.31204330178164175
+    std:
+      red: 0.00458978965450109
+      green: 0.005251005398977127
+      blue: 0.005226591588804816
+      nir: 0.011939139852374579
+    wavelength:
+      red: 0.635
+      green: 0.535
+      blue: 0.46
+      nir: 0.785
